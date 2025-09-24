@@ -7,16 +7,43 @@ const Agence = () => {
 
   gsap.registerPlugin(ScrollTrigger);
   const imgDivRef = useRef(null)
+  const imgRef = useRef(null)
+
+  const imageArray = [
+    'https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/Olivier_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/Lawrence_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/HugoJoseph_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/ChantalG_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/MyleneS_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/SophieA_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/Claire_480x640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/Michele_480X640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/MEL_480X640-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/CAMILLE_480X640_2-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/MAXIME_480X640_2-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/MEGGIE_480X640_2-480x640.jpg',
+    'https://k72.ca/uploads/teamMembers/joel_480X640_3-480x640.jpg',
+  ]
+
 
   useGSAP(function () {
     gsap.to(imgDivRef.current, {
       scrollTrigger: {
         trigger: imgDivRef.current,
-        markers: true,
-        start: "top 18%",
+        start: "top 20%",
         end: "top -100%",
-        scrub:true,
+        scrub: true,
         pin: true,
+        onUpdate: function (elem) {
+          let imageIndex;
+          if (elem.progress < 1) {
+            imageIndex = Math.floor(elem.progress * imageArray.length)
+          } else {
+            imageIndex = imageArray.length - 1
+          }
+          imgRef.current.src = imageArray[imageIndex]
+        }
       }
     })
   })
@@ -28,7 +55,7 @@ const Agence = () => {
       <div className='section1'>
 
         <div ref={imgDivRef} className='absolute h-[20vw] w-[15vw] top-28 left-[30vw] rounded-3xl overflow-hidden'>
-          <img className='h-full w-full object-cover' src="https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg" alt="" />
+          <img ref={imgRef} className='h-full w-full object-cover' src="https://k72.ca/uploads/teamMembers/Carl_480x640-480x640.jpg" alt="" />
         </div>
 
         <div className='relative font-[font2] '>
